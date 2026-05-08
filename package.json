@@ -1,6 +1,11 @@
 {
   "name": "nexus-management",
-  "version": "1.0.0",
+  "version": "1.1.0",
+  "description": "Zoneless Angular 21 Kanban Management System",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pramodGit/nexus-management.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

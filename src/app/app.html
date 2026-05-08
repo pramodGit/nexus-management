@@ -5,9 +5,21 @@
 
   <main class="content">
     <header>
-      <h1>Nexus Core Development</h1>
-      <div class="badge">v1.0.0 - Zoneless</div>
-      <button class="add-btn" (click)="showForm.set(true)">+ Create Task</button>
+      <div class="title-group">
+        <h1>Nexus Core Development</h1>
+        <div class="badge">v1.1.0 - Zoneless</div>
+        <button class="add-btn" (click)="showForm.set(true)">+ Create Task</button>
+        <div class="search-wrapper">
+          <input 
+              type="text" 
+              placeholder="Search tasks (Ctrl + /)" 
+              (input)="updateSearch($event)"
+              [value]="searchTerm()" />
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="add-btn" (click)="showForm.set(true)">+ Create</button>
+        </div>
     </header>
 
     @if (showForm()) {
@@ -40,5 +52,15 @@
         </div>
       }
     </div>
+    <footer>
+      <div class="repo-info">
+        <span class="branch"> {{ gitInfo.branch }}</span>
+        <span class="hash">#{{ gitInfo.hash }}</span>
+        <span class="ver">v{{ gitInfo.version }}</span>
+      </div>
+      <div class="status-indicator">
+        <span class="dot pulse"></span> Local Sync Active
+      </div>
+    </footer>
   </main>
 </div>

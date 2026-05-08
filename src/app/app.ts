@@ -8,6 +8,7 @@ import {
   DragDropModule, 
   moveItemInArray 
 } from '@angular/cdk/drag-drop';
+import packageInfo from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -21,10 +22,24 @@ export class App {
   showForm = signal(false); // Signal to toggle the form
   
   // 1. Expose the Signal from the service to the template
-  board = this.boardService.boardSignal;
+  board = this.boardService.filteredBoard;
   
   // 2. Define the columns for the @for loop in the HTML
   columns: TaskStatus[] = ['todo', 'inprogress', 'done'];
+  
+  searchTerm = this.boardService.searchTerm;
+  
+  // Simulated Git metadata
+  gitInfo = {
+    branch: 'main',
+    hash: '7a2f1b8',
+    version: packageInfo.version
+  };
+
+  updateSearch(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchTerm.set(value);
+  }
 
   // 3. Define the drop handler logic
   drop(event: CdkDragDrop<any[]>, newStatus: string) {

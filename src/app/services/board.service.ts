@@ -15,6 +15,7 @@ export class BoardService {
 
   // Initialize from LocalStorage or use default state
   boardSignal = signal<BoardState>(this.loadFromStorage());
+  searchTerm = signal('');
 
   constructor() {
     // EFFECT: Automatically sync state to LocalStorage on every Signal change
@@ -100,4 +101,21 @@ export class BoardService {
       todo: [newTask, ...board.todo]
     }));
   }
+
+  // Computed Signal: This automatically updates whenever searchTerm OR boardSignal changes
+  filteredBoard = computed(() => {
+    const term = this.searchTerm().toLowerCase();
+    const board = this.boardSignal();
+    
+    if (!term) return board;
+
+    const filtered: Record<TaskStatus, BoardTask[]> = {
+      _lastUpdated: board._lastUpdated,
+      todo: board.todo.filter(t => t.title.toLowerCase().includes(term) || t.description.toLowerCase().includes(term)),
+      inprogress: board.inprogress.filter(t => t.title.toLowerCase().includes(term) || t.description.toLowerCase().includes(term)),
+      done: board.done.filter(t => t.title.toLowerCase().includes(term) || t.description.toLowerCase().includes(term))
+    };
+    
+    return filtered;
+  });
 }
