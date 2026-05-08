@@ -1,0 +1,99 @@
+.nexus-layout {
+  display: flex;
+  height: 100%;
+  background: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar {
+  width: 64px;
+  background: #0747a6;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  .logo { color: white; font-weight: bold; font-size: 1.2rem; }
+}
+
+.content {
+  flex: 1;
+  padding: 24px;
+  header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    h1 { margin: 0; font-size: 1.5rem; color: #172b4d; }
+    .badge { background: #e3f2fd; color: #0d47a1; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; }
+  }
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.column {
+  background: #f4f5f7;
+  border-radius: 8px;
+  padding: 12px;
+  min-height: 500px;
+  h3 { font-size: 0.8rem; color: #5e6c84; margin-bottom: 15px; letter-spacing: 1px; }
+}
+
+.list { min-height: 400px; }
+
+.card {
+  background: white;
+  border-radius: 3px;
+  padding: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  cursor: grab;
+  border-left: 4px solid transparent;
+
+  &:hover { background: #fafbfc; }
+  h4 { margin: 0 0 5px 0; font-size: 0.95rem; color: #172b4d; }
+  p { font-size: 0.85rem; color: #6b778c; margin: 0; }
+  
+  .priority[data-prio="high"] { color: #ff5252; &::before { content: '▲ High'; font-size: 0.7rem; font-weight: bold; } }
+}
+
+/* CDK Dragging Styles */
+.cdk-drag-preview {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  cursor: grabbing;
+}
+
+/* Add Task Button */
+.add-btn {
+  background: #0052cc;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #0065ff;
+  }
+}
+
+/* Slide-down animation for the form */
+app-task-form {
+  display: block;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
