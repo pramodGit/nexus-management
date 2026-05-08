@@ -1,59 +1,45 @@
-# NexusManagement
+# Nexus Management (v1.1.0) 🚀
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.9.
+Nexus is a high-performance, **Zoneless Angular 21** Kanban board designed for modern task management. It features real-time cross-tab synchronization and a developer-centric UI inspired by professional IDEs.
 
-## Development server
+## 🛠 Tech Stack
 
-To start a local development server, run:
+* **Framework:** Angular 21 (Zoneless Change Detection)
+* **State Management:** Angular Signals & Computed Signals
+* **Drag & Drop:** Angular CDK DragDropModule
+* **Persistence:** LocalStorage with multi-tab `storage` event synchronization
+* **Styling:** SCSS with technical "IDE-style" themes
 
-```bash
-ng serve
-```
+## ✨ Key Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+* **Zoneless Reactivity:** Leverages `provideZonelessChangeDetection()` for surgical UI updates without Zone.js overhead.
+* **Cross-Tab Sync:** Move a task in one tab, and watch it jump in another automatically via a custom `StorageEvent` listener.
+* **Real-time Search:** Optimized task filtering using `computed` signals that respond instantly to user input.
+* **Persistence Engine:** Uses a timestamped state logic to ensure data integrity during simultaneous updates.
+* **Git-Integrated UI:** Technical footer displaying current branch, commit hash, and package version.
 
-## Code scaffolding
+## 🚀 Getting Started
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1.  **Clone the repo:**
+    ```bash
+    git clone [https://github.com/your-username/nexus-management.git](https://github.com/your-username/nexus-management.git)
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Run the dev server:**
+    ```bash
+    npm start
+    ```
+4.  **Access the app:** Open `http://localhost:4200` in multiple tabs to see the sync in action!
 
-```bash
-ng generate component component-name
-```
+## 📈 Roadmap
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- [x] v1.0.0: Core Kanban + LocalSync
+- [x] v1.1.0: Real-time Search + Git Footer
+- [ ] v1.2.0: Task Archiving & Custom Categories
+- [ ] v2.0.0: Firebase Backend Integration
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+Developed by **Pramod** | [pramod.click](http://pramod.click)

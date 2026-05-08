@@ -32,7 +32,7 @@ export class App {
   // Simulated Git metadata
   gitInfo = {
     branch: 'main',
-    hash: '7a2f1b8',
+    hash: '585c082',
     version: packageInfo.version
   };
 
