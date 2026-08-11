@@ -1,9 +1,17 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal, effect, computed } from '@angular/core';
 import { BoardTask, TaskStatus } from '../models/task.model';
 
 // Extending the record to include a timestamp for synchronization priority
-interface BoardState extends Record<TaskStatus, BoardTask[]> {
-  _lastUpdated: number;
+// interface BoardState extends Record<TaskStatus, BoardTask[]> {
+//   _lastUpdated: number;
+// }
+
+// Define the shape of your board state properly
+export interface BoardState {
+  todo: BoardTask[];
+  inprogress: BoardTask[];
+  done: BoardTask[];
+  _lastUpdated: number; // The metadata property
 }
 
 @Injectable({ providedIn: 'root' })
@@ -15,6 +23,7 @@ export class BoardService {
 
   // Initialize from LocalStorage or use default state
   boardSignal = signal<BoardState>(this.loadFromStorage());
+  searchTerm = signal('');
 
   constructor() {
     // EFFECT: Automatically sync state to LocalStorage on every Signal change
@@ -57,27 +66,22 @@ export class BoardService {
   }
 
   moveTask(taskId: string, from: TaskStatus, to: TaskStatus, newIndex: number) {
-    this.localTimestamp = Date.now(); // Update our local priority clock
+    this.localTimestamp = Date.now();
 
     this.boardSignal.update(board => {
-      // Create deep copies of arrays to ensure Signal change detection fires correctly
+      // TypeScript now knows _lastUpdated is allowed here
       const newBoard: BoardState = {
-        _lastUpdated: this.localTimestamp,
         todo: [...board.todo],
         inprogress: [...board.inprogress],
-        done: [...board.done]
+        done: [...board.done],
+        _lastUpdated: this.localTimestamp
       };
 
-      // 1. Find the task in the source column
       const taskIndex = newBoard[from].findIndex(t => t.id === taskId);
       if (taskIndex === -1) return board;
 
-      // 2. Remove from source and update status
       const [task] = newBoard[from].splice(taskIndex, 1);
-      const updatedTask = { ...task, status: to };
-
-      // 3. Insert into the destination column at the specific index
-      newBoard[to].splice(newIndex, 0, updatedTask);
+      newBoard[to].splice(newIndex, 0, { ...task, status: to });
       
       return newBoard;
     });
@@ -100,4 +104,19 @@ export class BoardService {
       todo: [newTask, ...board.todo]
     }));
   }
+
+  // Computed Signal: This automatically updates whenever searchTerm OR boardSignal changes
+  filteredBoard = computed<BoardState>(() => {
+    const term = this.searchTerm().toLowerCase();
+    const board = this.boardSignal();
+    
+    if (!term) return board;
+
+    return {
+      _lastUpdated: board._lastUpdated,
+      todo: board.todo.filter(t => t.title.toLowerCase().includes(term)),
+      inprogress: board.inprogress.filter(t => t.title.toLowerCase().includes(term)),
+      done: board.done.filter(t => t.title.toLowerCase().includes(term))
+    };
+  });
 }

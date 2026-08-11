@@ -97,3 +97,64 @@ app-task-form {
     transform: translateY(0);
   }
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .title-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+.search-wrapper {
+  input {
+    background: #ebecf0;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 6px;
+    width: 250px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+      background: white;
+      border-color: #0052cc;
+      box-shadow: 0 0 0 2px rgba(0,82,204,0.2);
+    }
+  }
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 64px;
+  background: #172b4d;
+  color: #a5adba;
+  padding: 4px 15px;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+
+  .repo-info span { margin-right: 15px; }
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    .dot { width: 8px; height: 8px; background: #36b37e; border-radius: 50%; }
+    .pulse { animation: pulse 2s infinite; }
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
